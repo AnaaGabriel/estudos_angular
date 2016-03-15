@@ -38,6 +38,16 @@
 				$scope.contatos.push(contato);
 				delete $scope.contato
 			};
+			$scope.apagarContatos = function(contatos){
+				$scope.contatos = contatos.filter(function(contato){
+					if(!contato.selecionado) return contato;
+				});
+			};
+			$scope.isContatoSelecionado = function(contatos){
+				return contatos.some(function(contato){
+					return contato.selecionado;
+				});
+			}
 		});
 	</script>
 </head>
@@ -51,6 +61,7 @@
         <th>Operadora</th>
 			</tr>
 			<tr ng-repeat="contato in contatos">
+				<td><input type="checkbox" ng-model="contato.selecionado"/></td>
 				<td>{{contato.nome}}</td>
 				<td>{{contato.telefone}}</td>
         <td>{{contato.operadora.nome}}</td>
@@ -63,6 +74,8 @@
       <option value="">Selecione uma operadora</option>
     </select>
 		<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+		<button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-disabled=!isContatoSelecionado(contatos)>Apagar Contatos</button>
+
 	</div>
 </body>
 </html>
