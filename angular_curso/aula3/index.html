@@ -69,16 +69,17 @@
 			</tr>
 		</table>
 		<hr/>
-		é válido: {{formContato.$valid}}</br>
-		não é válido : {{formContato.$invalid}}
 		<form name="formContato">
 			<input class="form-control" type="text" ng-model="contato.nome" placeholder="Nome" ng-required = "true"/>
-			<input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone"/>
+			<input class="form-control" type="text" ng-model="contato.telefone" placeholder="Telefone" ng-required= "true"/>
 	    <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
 	      <option value="">Selecione uma operadora</option>
     </select>
+		<div  ng-show = "formContato.$invalid" class="alert alert-danger">
+			Por  favor, preencha o nome e o telefone!
+		</div>
 	</form>
-		<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="!contato.nome || !contato.telefone">Adicionar Contato</button>
+		<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="formContato.$invalid">Adicionar Contato</button>
 		<button class="btn btn-danger btn-block" ng-click="apagarContatos(contatos)" ng-disabled=!isContatoSelecionado(contatos)>Apagar Contatos</button>
 
 	</div>
