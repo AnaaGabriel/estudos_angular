@@ -19,8 +19,9 @@
 		}
 	</style>
 	<script src="lib/angular/angular.js"></script>
+	<script src="lib/angular/angular-messages.js"></script>
 	<script>
-		angular.module("listaTelefonica", []);
+		angular.module("listaTelefonica", ["ngMessages"]);
 		angular.module("listaTelefonica").controller("listaTelefonicaCtrl", function ($scope) {
 			$scope.app = "Lista Telefonica";
 			$scope.contatos = [
@@ -76,17 +77,21 @@
 	    <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
 	      <option value="">Selecione uma operadora</option>
     </select>
-		<div  ng-show = "formContato.nome.$error.required && formContato.nome.$dirty" class="alert alert-danger">
-			Por  favor, preencha campo nome!
+		<div ng-messages="formContato.nome.$error" class="alert alert-danger">
+			<div  ng-message = "required">
+				Por  favor, preencha campo nome!
+			</div>
+			<div  ng-message = "minlength">
+				O campo nome deve ter no minimo 10 caracteres
+			</div>
 		</div>
-		<div  ng-show = "formContato.nome.$error.minlength" class="alert alert-danger">
-			O campo nome deve ter no minimo 10 caracteres
-		</div>
-		<div  ng-show = "formContato.telefone.$error.required && formContato.telefone.$dirty" class="alert alert-danger">
-			Por  favor, preencha campo telefone!
-		</div>
-		<div  ng-show = "formContato.telefone.$error.pattern" class="alert alert-danger">
-			Por  favor, preencha campo telefone no formato DDDD-DDDD!
+		<div ng-messages="formContato.telefone.$error" class="alert alert-danger">
+			<div  ng-message = "required">
+				Por  favor, preencha campo telefone!
+			</div>
+			<div  ng-message ="pattern">
+				Por  favor, preencha campo telefone no formato DDDD-DDDD!
+			</div>
 		</div>
 	</form>
 		<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="formContato.$invalid">Adicionar Contato</button>
