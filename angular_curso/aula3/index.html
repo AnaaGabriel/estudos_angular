@@ -72,18 +72,21 @@
 		<hr/>
 		<form name="formContato">
 			<input class="form-control" type="text" ng-model="contato.nome"  name=nome placeholder="Nome" ng-required = "true" ng-minlength="10"/>
-			<input class="form-control" type="text" ng-model="contato.telefone" name=telefone placeholder="Telefone" ng-required= "true"/>
+			<input class="form-control" type="text" ng-model="contato.telefone" name=telefone placeholder="Telefone" ng-required= "true" ng-pattern="/^\d{4,5}-\d{4}$/"/>
 	    <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
 	      <option value="">Selecione uma operadora</option>
     </select>
 		<div  ng-show = "formContato.nome.$error.required && formContato.nome.$dirty" class="alert alert-danger">
 			Por  favor, preencha campo nome!
 		</div>
-		<div  ng-show = "formContato.nome.$error.minlength && formContato.nome.$dirty" class="alert alert-danger">
+		<div  ng-show = "formContato.nome.$error.minlength" class="alert alert-danger">
 			O campo nome deve ter no minimo 10 caracteres
 		</div>
-		<div  ng-show = "formContato.telefone.$invalid && formContato.telefone.$dirty" class="alert alert-danger">
+		<div  ng-show = "formContato.telefone.$error.required && formContato.telefone.$dirty" class="alert alert-danger">
 			Por  favor, preencha campo telefone!
+		</div>
+		<div  ng-show = "formContato.telefone.$error.pattern" class="alert alert-danger">
+			Por  favor, preencha campo telefone no formato DDDD-DDDD!
 		</div>
 	</form>
 		<button class="btn btn-primary btn-block" ng-click="adicionarContato(contato)" ng-disabled="formContato.$invalid">Adicionar Contato</button>
