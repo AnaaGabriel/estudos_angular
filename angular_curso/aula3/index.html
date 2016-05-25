@@ -71,13 +71,16 @@
 		</table>
 		<hr/>
 		<form name="formContato">
-			<input class="form-control" type="text" ng-model="contato.nome"  name=nome placeholder="Nome" ng-required = "true"/>
+			<input class="form-control" type="text" ng-model="contato.nome"  name=nome placeholder="Nome" ng-required = "true" ng-minlength="10"/>
 			<input class="form-control" type="text" ng-model="contato.telefone" name=telefone placeholder="Telefone" ng-required= "true"/>
 	    <select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome group by operadora.categoria for operadora in operadoras">
 	      <option value="">Selecione uma operadora</option>
     </select>
-		<div  ng-show = "formContato.nome.$invalid && formContato.nome.$dirty" class="alert alert-danger">
+		<div  ng-show = "formContato.nome.$error.required && formContato.nome.$dirty" class="alert alert-danger">
 			Por  favor, preencha campo nome!
+		</div>
+		<div  ng-show = "formContato.nome.$error.minlength && formContato.nome.$dirty" class="alert alert-danger">
+			O campo nome deve ter no minimo 10 caracteres
 		</div>
 		<div  ng-show = "formContato.telefone.$invalid && formContato.telefone.$dirty" class="alert alert-danger">
 			Por  favor, preencha campo telefone!
